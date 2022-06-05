@@ -1,0 +1,104 @@
+#xayma {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+
+  .--xayma-start-button {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    border: 0;
+    padding: 0;
+    border-top-left-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+    background-color: var(--xayma-dark-color);
+    color: var(--xayma-light-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    gap: 5px;
+    cursor: pointer;
+
+    .--xayma-start-button-text {
+      writing-mode: vertical-rl;
+      -webkit-text-orientation: mixed;
+      text-orientation: mixed;
+    }
+
+    .--xayma-start-button-icon {
+      width: 20px;
+
+      svg {
+        fill: var(--xayma-light-color);
+      }
+    }
+  }
+
+  .--xayma-main-container {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 350px;
+    max-width: calc(100% - 20px);
+    box-shadow: var(--xayma-shadow);
+    animation: XaymaAnimeMainContainer 0.5s ease;
+
+    .--xayma-closer-button {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      transform: translateY(-50%);
+      border: 0;
+      min-width: 24px;
+      height: 24px;
+      outline: none;
+      background-color: var(--xayma-dark-color);
+      color: var(--xayma-light-color);
+      z-index: 50;
+      border-radius: 16em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 10px;
+
+      svg {
+        fill: var(--xayma-light-color);
+        width: 8px;
+      }
+    }
+
+    @keyframes XaymaAnimeMainContainer {
+      0% {
+        transform: translateY(-50%) translateX(50%);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(-50%) translateX(0) scale(1);
+        opacity: 1;
+      }
+    }
+  }
+
+  &:not(.open) {
+    .--xayma-main-container {
+      display: none;
+    }
+  }
+
+  &.open {
+    .--xayma-start-button {
+      display: none;
+    }
+  }
+
+  &:not(.ready) {
+    display: none;
+  }
+}

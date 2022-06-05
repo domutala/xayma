@@ -1,0 +1,197 @@
+.--xayma-main {
+  position: relative;
+  background-color: var(--xayma-light-color);
+  color: var(--xayma-dark-color);
+  box-shadow: var(--xayma-shadow);
+  font-family: "Roboto", sans-serif;
+
+  .--xayma-main-close-btn {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    border: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background-color: var(--xayma-dark-color);
+    color: var(--xayma-light-color);
+    fill: var(--xayma-light-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+
+    svg {
+      width: 10px;
+    }
+  }
+
+  .--xayma-head {
+    text-align: center;
+    padding: 15px;
+    padding: 20px;
+  }
+
+  .--xayma-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 20px;
+
+    .--xayma-action-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 0;
+      background-color: transparent;
+      padding: 0;
+      width: 42px;
+      height: 42px;
+      line-height: 1;
+      cursor: pointer;
+      position: relative;
+      animation: AnimeActionButton 0.5s ease;
+      // animation: name duration timing-function delay iteration-count direction fill-mode;
+
+      @keyframes AnimeActionButton {
+        0% {
+          transform: translateX(-200px) scale(0.2);
+          opacity: 0;
+        }
+
+        100% {
+          transform: translateX(0px) scale(1);
+          opacity: 1;
+        }
+      }
+
+      .--xayma-action-button-icon {
+        width: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // opacity: 0.5;
+
+        > svg {
+          width: 32px;
+        }
+      }
+
+      .--xayma-action-button-text {
+        font-size: 9px;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: max-content;
+        opacity: 0;
+        padding: 5px;
+        box-shadow: var(--xayma-shadow-color);
+      }
+
+      &.--coation-deactive-button {
+        .--xayma-action-button-icon {
+          opacity: 0.5;
+        }
+      }
+
+      &.--coation-active-button {
+        .--xayma-action-button-icon {
+          opacity: 1;
+          fill: rgb(255, 213, 0);
+        }
+      }
+
+      &:hover {
+        .--xayma-action-button-icon {
+          opacity: 1;
+          fill: rgb(255, 213, 0);
+        }
+
+        .--xayma-action-button-text {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .--xayma-editor {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--xayma-dark-color);
+      opacity: 0.03;
+    }
+
+    .xayma-textarea {
+      border: 0;
+      width: calc(100% - 20px);
+      height: 150px;
+      outline: none;
+      resize: none;
+      background-color: transparent;
+      padding: 10px;
+      // border-radius: 0.3em;
+      // border: 1px solid var(--border-color);
+      font: inherit;
+      position: relative;
+    }
+  }
+
+  .--xayma-submit {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+
+    .--xayma-submit-button {
+      margin-left: auto;
+      border: 0;
+      height: 32px;
+      padding: 0 10px;
+      border-radius: 0.3em;
+      background-color: var(--xayma-dark-color);
+      color: var(--xayma-light-color);
+      cursor: pointer;
+    }
+  }
+
+  .--xayma-foot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+  }
+
+  .--xayma-saving {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: inherit;
+
+    svg {
+      width: 32px;
+    }
+  }
+
+  .--xayma-close {
+    display: none !important;
+  }
+}
