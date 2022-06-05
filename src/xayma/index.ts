@@ -1,3 +1,5 @@
+import app from "./app";
+import firebase from "./firebase";
 export default class Xayma {
   firebase: any;
   $textarea!: HTMLTextAreaElement;
@@ -56,10 +58,8 @@ export default class Xayma {
   }
 
   private async init() {
-    const app = (await import("./app")).default;
     app(this.parent);
 
-    const firebase = (await import("./firebase")).default;
     this.firebase = await firebase();
 
     const el = document.querySelector(".--xayma-main") as HTMLDivElement;

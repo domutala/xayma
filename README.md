@@ -14,7 +14,7 @@ npm i --save xayma
 
 ```javascript
 // browser
-<script src="https://cdn.jsdelivr.net/npm/dropper.mood@1.0.5/dist/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xayma2@0.1.24/dist/main.min.js"></script>
 
 <script>
   // initilize

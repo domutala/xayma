@@ -1,5 +1,6 @@
+import _svg from "../../xayma/svgs";
+
 export default async (template: string) => {
-  const _svg = (await import("../../xayma/svgs")).default;
   const button = document.createElement("button");
   button.classList.add("--xayma-start-button");
 

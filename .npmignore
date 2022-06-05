@@ -2,6 +2,7 @@ node_modules
 dist/index.html
 yarn.lock
 yarn.error
+yarn-error.log
 .vscode
 .env
 src
@@ -9,5 +10,6 @@ src
 .eslintignore
 .gitignore
 .prettierrc
-.tsconfig
+tsconfig.json
 webpack.config.js
+example

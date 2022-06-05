@@ -1,12 +1,13 @@
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithCredential,
+} from "firebase/auth";
+
 const plugin = async () => {
-  const { initializeApp } = await import("firebase/app");
-  const { getFirestore, collection, addDoc } = await import(
-    "firebase/firestore"
-  );
-
-  const { getAuth, GoogleAuthProvider, signInWithPopup, signInWithCredential } =
-    await import("firebase/auth");
-
   const firebaseConfig = {
     apiKey: "AIzaSyCNBf3hOjiqkgO_UdtkLdQK2jx-vP64LSY",
     authDomain: "nexts-d4a8d.firebaseapp.com",

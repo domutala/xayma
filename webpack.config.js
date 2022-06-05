@@ -1,6 +1,5 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = function (env) {
@@ -10,23 +9,18 @@ module.exports = function (env) {
     devtool: 'inline-source-map',
 
     entry: {
-      template: { import: './src/xayma/template/index.ts' },
-      styles: { import: './src/xayma/styles/index.ts' },
-      firebase: { import: './src/xayma/firebase/index.ts' },
-      svgs: { import: './src/xayma/svgs/index.ts' },
-      popup: { import: './src/popup/index.ts' },
-      main: { import: './src/main.ts' },
+      main: './src/main.ts',
     },
 
     output: {
       filename: '[name].js',
       path: path.resolve(__dirname, 'dist'),
       clean: true,
-      library: 'xayma'
+      library: "xayma",
+      libraryTarget: 'umd',
     },
 
     plugins: [
-      new HtmlWebpackPlugin({ title: 'Xayma', }),
       new MiniCssExtractPlugin(),
       new MiniCssExtractPlugin({
         filename: "[name].css",
@@ -60,13 +54,6 @@ module.exports = function (env) {
 
     devServer: {
       static: './dist',
-    },
-
-    optimization: {
-      runtimeChunk: 'single',
-      splitChunks: {
-        chunks: 'all',
-      },
     },
   };
 };

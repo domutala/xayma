@@ -1,3 +1,6 @@
+import template from "./templates";
+import _style from "./styles";
+import Xayma from "../xayma";
 export default class Popup {
   main!: any;
   app!: HTMLDivElement;
@@ -9,10 +12,6 @@ export default class Popup {
   }
 
   async init() {
-    const template = (await import("./templates")).default;
-    const _style = (await import("./styles")).default;
-    const Xayma = (await import("../xayma")).default;
-
     const app = document.createElement("div");
     app.innerHTML = await template();
     this.app = app.firstChild as HTMLDivElement;
