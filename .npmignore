@@ -1,0 +1,13 @@
+node_modules
+dist/index.html
+yarn.lock
+yarn.error
+.vscode
+.env
+src
+.eslintrc.js
+.eslintignore
+.gitignore
+.prettierrc
+.tsconfig
+webpack.config.js
