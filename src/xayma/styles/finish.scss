@@ -6,10 +6,14 @@
     width: 64px;
     height: 64px;
     margin: auto;
-    fill: var(--xayma-yellow-color);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    svg {
+      fill: var(--xayma-yellow-color);
+    }
   }
 
   .--xayma-finish-text {

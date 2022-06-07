@@ -103,14 +103,20 @@
       &.--coation-active-button {
         .--xayma-action-button-icon {
           opacity: 1;
-          fill: var(--xayma-yellow-color);
+
+          svg {
+            fill: var(--xayma-yellow-color);
+          }
         }
       }
 
       &:hover {
         .--xayma-action-button-icon {
           opacity: 1;
-          fill: var(--xayma-yellow-color);
+
+          svg {
+            fill: var(--xayma-yellow-color);
+          }
         }
 
         .--xayma-action-button-text {

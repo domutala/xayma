@@ -48,6 +48,11 @@ export declare class Xayma {
   constructor(options: XaymaOptions);
 }
 
+export declare function init(
+  entrepriseId: string,
+  lang?: "fr" | "en" | undefined
+): void;
+
 interface Window {
   xayma: { init: (entreprise: string, lang?: "fr" | "en") => void };
 }
