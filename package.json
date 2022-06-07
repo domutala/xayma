@@ -1,6 +1,7 @@
 {
   "name": "xayma",
-  "version": "0.1.31",
+  "version": "0.1.32",
+  "description": "Xayma is an open source experience sharing platform. Our goal is to enable companies to offer their customers the best services and improve to better meet their needs. You can integrate it quite easily into your website.",
   "author": {
     "name": "domutala",
     "github": "https://github.com/domutala"
@@ -35,8 +36,8 @@
     "firebase": "^9.8.2"
   },
   "scripts": {
-    "build": "webpack --mode=production",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "build": "webpack --mode=production"
   },
   "keywords": [
     "xayma",
