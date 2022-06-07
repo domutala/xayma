@@ -5,6 +5,7 @@ export interface XaymaOptions {
   onReady;
   entreprise;
   onSave;
+  lang?: "fr" | "en";
 }
 
 export declare class Xayma {
@@ -48,5 +49,5 @@ export declare class Xayma {
 }
 
 interface Window {
-  xayma: { init: (entreprise: string) => void };
+  xayma: { init: (entreprise: string, lang?: "fr" | "en") => void };
 }

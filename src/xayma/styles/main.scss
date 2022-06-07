@@ -103,14 +103,14 @@
       &.--coation-active-button {
         .--xayma-action-button-icon {
           opacity: 1;
-          fill: rgb(255, 213, 0);
+          fill: var(--xayma-yellow-color);
         }
       }
 
       &:hover {
         .--xayma-action-button-icon {
           opacity: 1;
-          fill: rgb(255, 213, 0);
+          fill: var(--xayma-yellow-color);
         }
 
         .--xayma-action-button-text {
@@ -149,6 +149,31 @@
     }
   }
 
+  .--xayma-email {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--xayma-dark-color);
+      opacity: 0.05;
+    }
+
+    input {
+      border: 0;
+      width: calc(100% - 20px);
+      outline: none;
+      background-color: transparent;
+      padding: 15px 20px;
+      font: inherit;
+      position: relative;
+    }
+  }
+
   .--xayma-submit {
     display: flex;
     align-items: center;
@@ -167,10 +192,13 @@
   }
 
   .--xayma-foot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 5px;
+    font-size: 12px;
+    text-align: center;
+
+    a {
+      color: var(--xayma-dark-color);
+    }
   }
 
   .--xayma-saving {

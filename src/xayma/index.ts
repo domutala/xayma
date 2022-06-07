@@ -1,5 +1,6 @@
 import app from "./app";
 import firebase from "./firebase";
+import svgs from "./svgs";
 export default class Xayma {
   firebase: any;
   $textarea!: HTMLTextAreaElement;
@@ -18,9 +19,9 @@ export default class Xayma {
         };
       };
 
-      login: {
+      email: {
         el: HTMLDivElement;
-        options: NodeListOf<HTMLButtonElement>;
+        input: HTMLInputElement;
       };
 
       submit: {
@@ -29,6 +30,13 @@ export default class Xayma {
       };
 
       saving: HTMLDivElement;
+      finish: {
+        el: HTMLDivElement;
+        children: {
+          icon: HTMLDivElement;
+          text: HTMLDivElement;
+        };
+      };
     };
   };
 
@@ -44,14 +52,18 @@ export default class Xayma {
     onReady,
     entreprise,
     onSave,
+    lang = "fr",
   }: {
     parent: Element;
     entreprise: string;
     onReady?: () => void;
     onSave?: () => void;
+    lang?: "fr" | "en";
   }) {
     this.entreprise = entreprise;
     this.parent = parent;
+    this.lang = lang;
+
     this.onReady = onReady;
     this.onSave = onSave;
     this.init();
@@ -82,34 +94,51 @@ export default class Xayma {
       this.text = textarea.value;
     });
 
-    // login
-    const login = el.querySelector(".--xayma-login") as HTMLDivElement;
-    const loginBtns = login.querySelectorAll("button");
-
-    loginBtns.forEach((btn) => {
-      btn.addEventListener("click", () => this.login());
+    // email
+    const email = el.querySelector(".--xayma-email") as HTMLDivElement;
+    const emailInput = email.querySelector("input") as HTMLInputElement;
+    emailInput.value = this.email;
+    emailInput.addEventListener("change", () => {
+      this.email = emailInput.value;
     });
 
     // submit
     const submit = el.querySelector(".--xayma-submit") as HTMLDivElement;
     const submitBtn = submit.querySelector("button") as HTMLButtonElement;
-    submit.addEventListener("click", () => this.submit());
+    submitBtn.addEventListener("click", () => this.submit());
 
     // saving
     const saving = el.querySelector(".--xayma-saving") as HTMLDivElement;
+
+    // finish
+    const finish = el.querySelector(".--xayma-finish") as HTMLDivElement;
+    const finishIcon = finish.querySelector(
+      ".--xayma-finish-icon"
+    ) as HTMLDivElement;
+    const finishText = finish.querySelector(
+      ".--xayma-finish-text"
+    ) as HTMLDivElement;
 
     this.$el = {
       el,
       children: {
         editor: { el: editor, children: { textarea } },
         actions: { el: actions, buttons },
-        login: { el: login, options: loginBtns },
+        email: { el: email, input: emailInput },
         submit: { el: submit, button: submitBtn },
         saving,
+        finish: {
+          el: finish,
+          children: {
+            icon: finishIcon,
+            text: finishText,
+          },
+        },
       },
     };
 
     this.step = 1;
+    this.translate(this.lang);
     if (this.onReady) this.onReady();
   }
 
@@ -118,11 +147,15 @@ export default class Xayma {
   }
 
   private submit() {
-    if (this.firebase.auth.currentUser) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/gim;
+
+    if (re.test(this.email)) {
       const data = {
         note: this.note,
         entreprise: this.entreprise,
         text: this.text || null,
+        email: this.email,
       };
 
       this.saving = true;
@@ -130,6 +163,18 @@ export default class Xayma {
         .save(data)
         .then(() => {
           if (this.onSave) this.onSave();
+
+          const notes = {
+            1: svgs.frown,
+            2: svgs.dislike,
+            3: svgs.acceptable,
+            4: svgs.like,
+            5: svgs.love,
+          };
+
+          this.$el.children.finish.children.icon.innerHTML =
+            notes[this.note as 1];
+          this.step = 100;
         })
         .finally(() => {
           this.saving = false;
@@ -137,8 +182,67 @@ export default class Xayma {
     } else this.step = 3;
   }
 
-  private login() {
-    this.firebase.login(true).then(() => this.submit());
+  private translate(lang: "fr" | "en") {
+    const words = {
+      fr: {
+        actions: {
+          1: "Horrible",
+          2: "J'aime pas",
+          3: "Acceptable",
+          4: "J'aime",
+          5: "J'adore",
+        },
+        editor: {
+          placeholder: "Racontez-nous votre expérience (facultatif)...",
+        },
+        email: {
+          placeholder: "Votre adresse email",
+        },
+        finish: {
+          text: "Merci d'avoir participer à améliorer la qualité de ce service en partageant votre expérience!",
+        },
+        submit: {
+          text: "Envoyer",
+        },
+      },
+      en: {
+        actions: {
+          1: "Horrible",
+          2: "I don't like it",
+          3: "Acceptable",
+          4: "I like it",
+          5: "I love it",
+        },
+        editor: {
+          placeholder: "Tell us about your expérience (optional)...",
+        },
+        email: {
+          placeholder: "Your email address",
+        },
+        finish: {
+          text: "Thank you for participating in improving the quality of this service by sharing your expérience !",
+        },
+        submit: {
+          text: "Send",
+        },
+      },
+    };
+
+    const word = words[lang];
+
+    this.$el.children.actions.buttons.forEach((btn, i) => {
+      const text = btn.querySelector(
+        ".--xayma-action-button-text"
+      ) as HTMLDivElement;
+
+      text.innerText = word.actions[(i + 1) as 1];
+    });
+
+    this.$el.children.editor.children.textarea.placeholder =
+      word.editor.placeholder;
+    this.$el.children.email.input.placeholder = word.email.placeholder;
+    this.$el.children.finish.children.text.innerText = word.finish.text;
+    this.$el.children.submit.button.innerText = word.submit.text;
   }
 
   private _note?: number | undefined;
@@ -174,21 +278,29 @@ export default class Xayma {
     this.$el.children.actions.el.classList.remove("--xayma-close");
     this.$el.children.editor.el.classList.remove("--xayma-close");
     this.$el.children.submit.el.classList.remove("--xayma-close");
-    this.$el.children.login.el.classList.remove("--xayma-close");
+    this.$el.children.email.el.classList.remove("--xayma-close");
+    this.$el.children.finish.el.classList.remove("--xayma-close");
 
     if (this.step === 1) {
       this.$el.children.editor.el.classList.add("--xayma-close");
       this.$el.children.submit.el.classList.add("--xayma-close");
-      this.$el.children.login.el.classList.add("--xayma-close");
+      this.$el.children.email.el.classList.add("--xayma-close");
+      this.$el.children.finish.el.classList.add("--xayma-close");
 
       this.note = undefined;
       this.text = "";
     } else if (this.step === 2) {
-      this.$el.children.login.el.classList.add("--xayma-close");
+      this.$el.children.email.el.classList.add("--xayma-close");
+      this.$el.children.finish.el.classList.add("--xayma-close");
     } else if (this.step === 3) {
+      this.$el.children.editor.el.classList.add("--xayma-close");
+      this.$el.children.finish.el.classList.add("--xayma-close");
+    } else {
       this.$el.children.actions.el.classList.add("--xayma-close");
       this.$el.children.editor.el.classList.add("--xayma-close");
       this.$el.children.submit.el.classList.add("--xayma-close");
+      this.$el.children.email.el.classList.add("--xayma-close");
+      this.$el.children.finish.el.classList.remove("--xayma-close");
     }
   }
 
@@ -202,5 +314,22 @@ export default class Xayma {
     this.$el.children.saving.classList[!value ? "add" : "remove"](
       "--xayma-close"
     );
+  }
+
+  // private _email = "";
+  public get email() {
+    return sessionStorage.getItem("xayma.auth.email") || "";
+  }
+  public set email(value: string) {
+    // this._email = value;
+    sessionStorage.setItem("xayma.auth.email", value);
+  }
+
+  private _lang: "fr" | "en" = "fr";
+  public get lang(): "fr" | "en" {
+    return this._lang;
+  }
+  public set lang(value: "fr" | "en") {
+    this._lang = value;
   }
 }

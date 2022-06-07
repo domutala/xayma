@@ -3,12 +3,14 @@
 $primary-color: 244, 54, 76;
 $light-color: 255, 255, 255;
 $dark-color: 0, 0, 0;
+$yellow-color: 255, 213, 0;
 $shadow-color-var: 149, 157, 165;
 
 :root {
   --xayma-primary-color: rgb(#{$primary-color});
   --xayma-light-color: rgb(#{$light-color});
   --xayma-dark-color: rgb(#{$dark-color});
+  --xayma-yellow-color: rgb(#{$yellow-color});
   --border-color: rgba(#{$dark-color}, 0.1);
 
   --xayma-shadow-color-var: #{$shadow-color-var};

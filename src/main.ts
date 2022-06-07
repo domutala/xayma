@@ -3,8 +3,8 @@ import Popup from "./popup";
 export { default as Xayma } from "./xayma";
 export { default as Popup } from "./popup";
 
-export function init(entreprise: string) {
-  const app = new Popup(entreprise);
+export function init(entreprise: string, lang?: "fr" | "en") {
+  const app = new Popup(entreprise, lang);
   return app;
 }
 

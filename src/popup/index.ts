@@ -5,13 +5,27 @@ export default class Popup {
   main!: any;
   app!: HTMLDivElement;
   entreprise!: string;
+  lang?: "fr" | "en";
 
-  constructor(entreprise: string) {
+  $el!: {
+    el: HTMLDivElement;
+    starterButton: HTMLButtonElement;
+    closerButton: HTMLButtonElement;
+  };
+
+  constructor(entreprise: string, lang?: "fr" | "en") {
     this.entreprise = entreprise;
+    this.lang = lang;
+
     this.init();
   }
 
   async init() {
+    if (!this.lang) {
+      const lang = window.navigator.language;
+      this.lang = ["fr", "en"].includes(lang) ? (lang as "fr") : "fr";
+    }
+
     const app = document.createElement("div");
     app.innerHTML = await template();
     this.app = app.firstChild as HTMLDivElement;
@@ -35,16 +49,42 @@ export default class Popup {
       ".--xayma-main-container"
     ) as HTMLDivElement;
 
+    this.$el = {
+      el: this.app,
+      closerButton: closer,
+      starterButton: starter,
+    };
+
+    this.translate(this.lang);
+
     this.main = new Xayma({
       parent: container,
       entreprise: this.entreprise,
+      lang: this.lang,
       onReady: () => this.onReady(),
-      onSave: () => this.onSave(),
     });
   }
 
-  onSave() {
-    this.toggleOpen(true);
+  private translate(lang: "fr" | "en") {
+    const words = {
+      fr: {
+        starterButton: "Votre avis",
+        closerButton: "Fermer",
+      },
+      en: {
+        starterButton: "Feedback",
+        closerButton: "Close",
+      },
+    };
+
+    const word = words[lang];
+
+    const text = this.$el.starterButton.querySelector(
+      ".--xayma-start-button-text"
+    ) as HTMLDivElement;
+    text.innerText = word.starterButton;
+
+    this.$el.closerButton.innerText = word.closerButton;
   }
 
   onReady() {

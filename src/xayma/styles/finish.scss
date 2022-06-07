@@ -1,0 +1,20 @@
+.--xayma-finish {
+  padding: 40px;
+  text-align: center;
+
+  .--xayma-finish-icon {
+    width: 64px;
+    height: 64px;
+    margin: auto;
+    fill: var(--xayma-yellow-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .--xayma-finish-text {
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+  }
+}
