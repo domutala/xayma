@@ -45,7 +45,12 @@ export default class Xayma {
   parent!: Element;
 
   entreprise!: string;
-  text = "";
+  public get text() {
+    return this.$el.children.editor.children.textarea.value;
+  }
+  public set text(value) {
+    this.$el.children.editor.children.textarea.value = value;
+  }
 
   constructor({
     parent,

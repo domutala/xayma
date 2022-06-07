@@ -12,7 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "baseUrl": ".",
-    "types": ["node", "./types"],
+    "types": ["node", "./typings"],
     "skipLibCheck": true
   },
 

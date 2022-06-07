@@ -13,3 +13,4 @@ src
 tsconfig.json
 webpack.config.js
 example
+typings

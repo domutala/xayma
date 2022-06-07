@@ -24,7 +24,7 @@ npm i --save xayma
 
 ```javascript
 // browser
-<script src="https://cdn.jsdelivr.net/npm/xayma@0.1.30/dist/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xayma@0.1.33/dist/main.min.js"></script>
 
 <script>
   // initilize
@@ -37,7 +37,7 @@ npm i --save xayma
 import * as xayma from "xayma";
 
 // initilize
-xayma.init(yourEntrepriseId, language?: "en" | "fr);
+xayma.init(yourEntrepriseId, language?: "en" | "fr");
 ```
 
-['xaymaio.web.app']('https://xaymaio.web.app/')
+[xaymaio.web.app](https://xaymaio.web.app/)

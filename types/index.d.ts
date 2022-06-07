@@ -1,5 +1,3 @@
-import "./others";
-
 export interface XaymaOptions {
   parent;
   onReady;

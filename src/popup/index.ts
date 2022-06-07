@@ -92,7 +92,6 @@ export default class Popup {
   }
 
   toggleOpen(forceClose?: boolean) {
-    forceClose;
     this.app.classList[forceClose ? "remove" : "toggle"]("open");
     this.main.step = 1;
   }
