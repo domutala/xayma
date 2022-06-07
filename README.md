@@ -24,7 +24,7 @@ npm i --save xayma
 
 ```javascript
 // browser
-<script src="https://cdn.jsdelivr.net/npm/xayma@0.1.24/dist/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xayma@0.1.29/dist/main.min.js"></script>
 
 <script>
   // initilize
